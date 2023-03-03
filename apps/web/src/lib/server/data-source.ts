@@ -50,10 +50,18 @@ const AppDataSource = new DataSource({
 async function initDB(){
   if(!AppDataSource.isInitialized){
     await AppDataSource.initialize();
-    // await runSeeders(AppDataSource);
+    await runSeeders(AppDataSource);
 
   }
 }
+
+
+await createDatabase({
+  ifNotExist: true,
+  options
+}); 
+
+
 // await initDB()
 // console.log({syn:AppDataSource.synchronize, entity:AppDataSource.options})
 // await runSeeders(AppDataSource);
