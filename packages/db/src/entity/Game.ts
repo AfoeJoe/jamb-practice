@@ -1,4 +1,3 @@
-import { Question } from './Question.js';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,11 +8,11 @@ import {
   OneToMany,
   Relation
 } from 'typeorm';
-import { User } from './User';
+import { UserSession } from './UserSession';
 import { Attempt } from './Attempt.js';
 import { ESubject } from '../types/index.js';
 
-@Entity()
+@Entity('game')
 export class Game {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -24,7 +23,7 @@ export class Game {
   @CreateDateColumn({ name: 'start_at' })
   startedAt!: Date;
 
-  @Column({ type: 'date', default: null, nullable: true, name: 'completed_at' })
+  @Column({ type: 'timestamptz', default: null, nullable: true, name: 'completed_at' })
   completedAt!: Date;
 
   @Column({ type: 'int', array: true })
@@ -33,9 +32,9 @@ export class Game {
   @Column({ type: 'enum', enum: ESubject })
   subject!: ESubject;
 
-  @ManyToOne(() => User, (user) => user.games)
+  @ManyToOne(() => UserSession, (userSession) => userSession.games)
   @JoinColumn({ name: 'user_id' })
-  user!: Relation<User>;
+  user!: Relation<UserSession>;
 
   @OneToMany(() => Attempt, (attempt) => attempt.game)
   attempts!: Relation<Attempt[]>;

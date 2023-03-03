@@ -1,9 +1,9 @@
-import { Game } from './../entity/Game';
-import { Question } from './../entity/Question';
+import { Game } from './../entity/Game.js';
+import { Question } from './../entity/Question.js';
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { Attempt } from '../entity/Attempt.js';
-import { User } from '../entity/User.js';
+import { UserSession } from '../entity/UserSession.js';
 
 export class AttemptSeeder implements Seeder {
   public async run(dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<any> {
@@ -11,7 +11,7 @@ export class AttemptSeeder implements Seeder {
     const [questionRepo, attemptRepo, userRepo, gameRepo] = [
       dataSource.getRepository(Question),
       dataSource.getRepository(Attempt),
-      dataSource.getRepository(User),
+      dataSource.getRepository(UserSession),
       dataSource.getRepository(Game)
     ];
     async function getQuestion() {
@@ -19,7 +19,7 @@ export class AttemptSeeder implements Seeder {
     }
 
     async function getUser() {
-      return userRepo.createQueryBuilder('user').select().orderBy('RANDOM()').getOne();
+      return userRepo.createQueryBuilder('userSession').select().orderBy('RANDOM()').getOne();
     }
 
     for (let i = 0; i < 20; i++) {

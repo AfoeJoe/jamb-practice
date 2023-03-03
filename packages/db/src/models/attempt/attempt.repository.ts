@@ -1,4 +1,4 @@
-import { AppDataSource } from '../../data-source.js';
+import { DataSource } from 'typeorm';
 import { Attempt } from '../../entity/Attempt.js';
 
-export const AttemptRepository = AppDataSource?.getRepository(Attempt).extend({});
+export const AttemptRepository = (dataSource:DataSource) => dataSource?.getRepository(Attempt).extend({});

@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Game } from './Game.js';
 
-@Entity()
+@Entity('attempt')
 export class Attempt {
   @PrimaryGeneratedColumn()
   id!: number;

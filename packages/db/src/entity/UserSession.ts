@@ -1,8 +1,8 @@
 import { Entity, PrimaryColumn, CreateDateColumn, OneToMany, Relation } from 'typeorm';
 import { Game } from './Game.js';
 
-@Entity()
-export class User {
+@Entity('user')
+export class UserSession {
   @PrimaryColumn('uuid')
   id!: string;
 

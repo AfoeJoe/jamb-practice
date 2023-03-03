@@ -69,6 +69,7 @@ importers:
       autoprefixer: ^10.4.7
       classnames: ^2.3.2
       db: workspace:*
+      dotenv: ^16.0.3
       eslint-config-custom: workspace:*
       flowbite: ^1.6.3
       flowbite-svelte: ^0.30.4
@@ -89,13 +90,14 @@ importers:
       '@popperjs/core': 2.11.6
       classnames: 2.3.2
       db: link:../../packages/db
+      dotenv: 16.0.3
       flowbite: 1.6.3
       typeorm: 0.3.12
       typeorm-extension: 2.5.2_typeorm@0.3.12
       ui: link:../../packages/ui
     devDependencies:
-      '@sveltejs/adapter-auto': 2.0.0_@sveltejs+kit@1.8.3
-      '@sveltejs/kit': 1.8.3_svelte@3.53.1+vite@4.0.0
+      '@sveltejs/adapter-auto': 2.0.0_@sveltejs+kit@1.9.2
+      '@sveltejs/kit': 1.9.2_svelte@3.53.1+vite@4.0.0
       autoprefixer: 10.4.13_postcss@8.4.19
       eslint-config-custom: link:../../packages/eslint-config-custom
       flowbite-svelte: 0.30.4_olqtxtxxcvzy55j7bb6cuxxuyq
@@ -455,6 +457,15 @@ packages:
       import-meta-resolve: 2.2.0
     dev: true
 
+  /@sveltejs/adapter-auto/2.0.0_@sveltejs+kit@1.9.2:
+    resolution: {integrity: sha512-b+gkHFZgD771kgV3aO4avHFd7y1zhmMYy9i6xOK7m/rwmwaRO8gnF5zBc0Rgca80B2PMU1bKNxyBTHA14OzUAQ==}
+    peerDependencies:
+      '@sveltejs/kit': ^1.0.0
+    dependencies:
+      '@sveltejs/kit': 1.9.2_svelte@3.53.1+vite@4.0.0
+      import-meta-resolve: 2.2.0
+    dev: true
+
   /@sveltejs/kit/1.8.3_svelte@3.53.1+vite@4.0.0:
     resolution: {integrity: sha512-32tiLy5PPpt2lquK2p53/5wR+ghAXw0HymIBEezmwmwtzx7Xf36xw3RG3fDYQ9gyzon89T+JRweXgAv/qhhvSQ==}
     engines: {node: ^16.14 || >=18}
@@ -471,6 +482,34 @@ packages:
       esm-env: 1.0.0
       kleur: 4.1.5
       magic-string: 0.29.0
+      mime: 3.0.0
+      sade: 1.8.1
+      set-cookie-parser: 2.5.1
+      sirv: 2.0.2
+      svelte: 3.53.1
+      tiny-glob: 0.2.9
+      undici: 5.20.0
+      vite: 4.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@sveltejs/kit/1.9.2_svelte@3.53.1+vite@4.0.0:
+    resolution: {integrity: sha512-KYDrzs9bdoK+3typr5eBa+8q+RFwZdI80tuSL1yU99Rn5hZsEbcj4tlBGVvlL7SHxJdMUiDUYhTznbpb7CIs9A==}
+    engines: {node: ^16.14 || >=18}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      svelte: ^3.54.0
+      vite: ^4.0.0
+    dependencies:
+      '@sveltejs/vite-plugin-svelte': 2.0.2_svelte@3.53.1+vite@4.0.0
+      '@types/cookie': 0.5.1
+      cookie: 0.5.0
+      devalue: 4.3.0
+      esm-env: 1.0.0
+      kleur: 4.1.5
+      magic-string: 0.30.0
       mime: 3.0.0
       sade: 1.8.1
       set-cookie-parser: 2.5.1
@@ -1559,6 +1598,13 @@ packages:
 
   /magic-string/0.29.0:
     resolution: {integrity: sha512-WcfidHrDjMY+eLjlU+8OvwREqHwpgCeKVBUpQ3OhYYuvfaYCUgcbuBzappNzZvg/v8onU3oQj+BYpkOJe9Iw4Q==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
+
+  /magic-string/0.30.0:
+    resolution: {integrity: sha512-LA+31JYDJLs82r2ScLrlz1GjSgu66ZV518eyWT+S8VhyQn/JL0u9MeBOvQMGYiPk1DBiSN9DDMOcXvigJZaViQ==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.14

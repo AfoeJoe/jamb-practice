@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typ
 import { AnswerList, ESubject, IMedia } from '../types/index.js';
 import { Attempt } from './Attempt.js';
 
-@Entity()
+@Entity('question')
 export class Question {
   @PrimaryGeneratedColumn()
   id!: number;

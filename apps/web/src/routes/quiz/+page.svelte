@@ -9,14 +9,19 @@
   import { base } from '$app/paths';
   import { browser } from '$app/environment';
   import { Button } from 'flowbite-svelte';
+  import { onMount } from 'svelte';
 
   export let data: PageServerData;
 
-  if ($page.form) {
+  $: if ($page.form) {
     $game$ = $page.form;
     game$.init($page.form ?? {});
-    if (browser) goto(`${base}/quiz/${$game$?.questions[0].slug}`);
+    // goto(`${base}/quiz/${$game$?.questions[0].slug}`);
   }
+  onMount(() => {
+    console.log('mount');
+    if ($page.form) goto(`${base}/quiz/${$game$?.questions[0].slug}`);
+  });
   console.log($page);
 </script>
 

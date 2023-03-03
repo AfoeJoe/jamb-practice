@@ -5,9 +5,11 @@
   import type { AnswerList } from 'db/src/types';
   import { getClassName } from '$lib/utils';
   import Button from './Button.svelte';
-  import { goto } from '$app/navigation';
+  import { afterNavigate, goto } from '$app/navigation';
   import { base } from '$app/paths';
   import { browser } from '$app/environment';
+  import { enhance } from '$app/forms';
+  import { beforeUpdate, onMount } from 'svelte';
 
   export let data: PageData;
 
@@ -20,24 +22,30 @@
   }
 
   $: {
-    if ($page.form) {
+    if ($page.form && game$) {
       game$.select($page.form.answerId, $page.form.selected);
-      setTimeout(function () {
-        if ($game$.cIdx < $game$.questions.length - 1) {
-          game$.next();
-          if (browser) goto(`${base}/quiz/${$game$?.questions[$game$.cIdx].slug}`);
-          $page.form = null;
-        } else {
-          if (browser) goto(`${base}/quiz-result`);
-        }
-      }, 2000);
+      // $page.form = null;
     }
+  }
+  console.log('Called');
+
+  function handleSubmit() {
+    setTimeout(function () {
+      if ($game$.cIdx < $game$.questions.length - 1) {
+        game$.next();
+        console.log('Called timer');
+
+        if (browser) goto(`${base}/quiz/${$game$?.questions[$game$.cIdx].slug}`);
+      } else {
+        if (browser) goto(`${base}/quiz-result`);
+      }
+    }, 2000);
   }
 </script>
 
 <div class="h-[calc(100vh_-_231px)] grid  px-4 py-8">
   <div class="my-auto">
-    <form id="quizWrap mx-auto" method="post" on:submit|once>
+    <form id="quizWrap mx-auto" method="post" on:submit={handleSubmit} use:enhance>
       <input type="hidden" name="questionId" value={$game$.questions[$game$.cIdx]?.id || ''} />
       <input type="hidden" name="cIdx" value={$game$.cIdx} />
       <input type="hidden" name="gameId" value={$game$.gameId} />
@@ -50,17 +58,6 @@
           {#each answers as answer, value}
             <Button {value} {answer} />
           {/each}
-          <button type="submit" name="selected" id="quizo1" value="1">
-            <label for="quizo2" data-idx="2">Celestial</label>
-          </button>
-          <!--  <button type="submit" name="selected" id="quizo1" value="1">
-          <label for="quizo1" data-idx="1">Divine</label>
-        </button>
-       
-
-        <button type="submit" name="selected" id="quizo1" value="1">
-          <label for="quizo3" data-idx="3">None of these</label>
-        </button> -->
         {/if}
       </div>
     </form>

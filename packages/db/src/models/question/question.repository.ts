@@ -1,8 +1,8 @@
 import { Question } from './../../entity/Question';
 import { ESubject, ISubjectSummaryDTO } from '../../types';
-import { AppDataSource } from '../../data-source';
+import { DataSource } from 'typeorm';
 
-export const QuestionRepository = AppDataSource?.getRepository(Question).extend({
+export const QuestionRepository =  (dataSource:DataSource) => dataSource?.getRepository(Question).extend({
   getSummary() {
     // return this.find();
     return (

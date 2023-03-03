@@ -10,6 +10,8 @@ export async function getUserId(cookies: Cookies) {
     date.setMonth(5);
     cookies.set('userId', id, { path: '/', maxAge: 24 * 60 * 60 });
   }
+
+  
   return id;
 }
 

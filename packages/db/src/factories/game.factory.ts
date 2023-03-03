@@ -1,5 +1,4 @@
 import { ESubject } from './../types/index';
-import { Attempt } from '../entity/Attempt.js';
 import { setSeederFactory } from 'typeorm-extension';
 import { Game } from '../entity/Game.js';
 

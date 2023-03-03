@@ -1,11 +1,11 @@
 import { DataSource } from 'typeorm';
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
-import { User } from '../entity/User.js';
+import { UserSession } from '../entity/UserSession.js';
 
-export class UserSeeder implements Seeder {
+export class UserSessionSeeder implements Seeder {
   public async run(_dataSource: DataSource, factoryManager: SeederFactoryManager): Promise<any> {
-    const userFactory = factoryManager.get(User);
+    const userSessionFactory = factoryManager.get(UserSession);
 
-    userFactory.saveMany(10);
+    userSessionFactory.saveMany(10);
   }
 }

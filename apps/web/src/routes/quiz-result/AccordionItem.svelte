@@ -14,7 +14,7 @@
     correct = question.answers[$game$.answers[index] || 0];
     wrong =
       $game$.answers[index] !== ($game$.selected[index] || 0)
-        ? question.answers[$game$.answers[index] || 0]
+        ? question.answers[$game$.selected[index] || 0]
         : '';
   }
 </script>

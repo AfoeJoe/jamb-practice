@@ -1,18 +1,17 @@
 import { AttemptRepository } from './../attempt/attempt.repository';
-import { UserController } from './../user/user.controller';
+import { UserSessionController } from '../userSession/userSession.controller';
 import { Game } from '../../entity/Game.js';
 import { CheckAnswerDTO, ESubject } from '../../types/index.js';
 import { QuestionController } from '../question/question.controller';
-import { AppDataSource } from '../../data-source';
-import { Question } from '../../entity/Question';
 import { QuestionRepository } from '../question/question.repository';
+import { DataSource } from 'typeorm';
 
-export const GameRepository = AppDataSource?.getRepository(Game).extend({
+export const GameRepository =  (dataSource:DataSource) => dataSource?.getRepository(Game).extend({
   async initGame(subject: ESubject, userId: string) {
-    const questions = await QuestionController.getRandomQuestion(subject, 5);
+    const questions = await QuestionController(dataSource).getRandomQuestion(subject, 5);
     const game = new Game();
     game.subject = subject;
-    const user = await UserController.user(userId);
+    const user = await UserSessionController(dataSource).user(userId);
     if (user) {
       game.user = user;
     } else throw new Error('User not found');
@@ -28,23 +27,31 @@ export const GameRepository = AppDataSource?.getRepository(Game).extend({
     // const gameSaved = await this.save(game2[0]);
     return { questions, gameId: identifiers[0].id };
   },
-  async registerScore(arg: CheckAnswerDTO) {
+  async registerScore({selected, gameId,questionId}: CheckAnswerDTO) {
     const game = await this.findOneBy({
-      id: arg.gameId
+      id: gameId
     });
 
-    const correctAnswer = await QuestionRepository.findOne({
-      where: { id: arg.questionId }
+    const correctAnswer = await QuestionRepository(dataSource).findOne({
+      where: { id: questionId }
     });
+    console.log({game,correctAnswer,selected})
 
     if (game) {
-      AttemptRepository.save({
+      AttemptRepository(dataSource).save({
         game,
         question: correctAnswer ?? undefined,
-        userAnswer: arg.selected
+        userAnswer: selected
       });
+      console.log("Correct answer1")
 
-      if (correctAnswer?.correct === arg.selected) game.score++;
+      if (correctAnswer?.correct === +selected) {
+        console.log("Correct answer")
+        game.score++;
+      }
+      if (game.questions.at(-1) === +questionId){
+        game.completedAt = new Date()
+      }
       this.save(game);
     }
     return correctAnswer?.correct;

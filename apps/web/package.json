@@ -17,6 +17,7 @@
     "@popperjs/core": "^2.11.6",
     "classnames": "^2.3.2",
     "db": "workspace:*",
+    "dotenv": "^16.0.3",
     "flowbite": "^1.6.3",
     "typeorm": "0.3.12",
     "typeorm-extension": "^2.5.2",

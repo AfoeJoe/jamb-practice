@@ -27,6 +27,7 @@ function createGame(): Writable<GameStore> & {
       const { selected, cIdx, answers } = n;
       selected[cIdx] = selectedArg;
       answers[cIdx] = answerArg;
+      
       return { ...n, selected, answers };
     });
   }
