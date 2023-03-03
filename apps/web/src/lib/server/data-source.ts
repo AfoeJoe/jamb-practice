@@ -50,7 +50,7 @@ const AppDataSource = new DataSource({
 async function initDB(){
   if(!AppDataSource.isInitialized){
     await AppDataSource.initialize();
-    await runSeeders(AppDataSource);
+    // await runSeeders(AppDataSource);
 
   }
 }
